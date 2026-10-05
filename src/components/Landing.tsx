@@ -1,17 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { checkoutUrl, money, offer } from "@/config/offer";
 
 const gallery = [
-  "/images/local/gallery-01.webp",
-  "/images/local/gallery-02.webp",
-  "/images/local/gallery-03.webp",
-  "/images/local/gallery-04.webp",
-  "/images/local/gallery-05.webp",
-  "/images/local/gallery-06.webp",
-  "/images/local/gallery-07.webp",
+  { src: "/images/galeria/foto-01.png", alt: "Chaveiros de raposas em crochê" },
+  { src: "/images/galeria/foto-02.png", alt: "Coleção de amigurumis coloridos" },
+  { src: "/images/galeria/foto-03.png", alt: "Chaveiros de animais em formato quadrado" },
+  { src: "/images/galeria/foto-04.png", alt: "Três bonequinhas de crochê" },
+  { src: "/images/galeria/foto-05.png", alt: "Chaveiro de coelhinha com laço rosa" },
+  { src: "/images/galeria/foto-06.png", alt: "Personagens em miniaturas de crochê" },
+  { src: "/images/galeria/foto-07.png", alt: "Chaveiro de personagem azul em crochê" },
+  { src: "/images/galeria/foto-08.png", alt: "Casal de ursinhos de crochê" },
 ];
+
+const galleryRows = [gallery, [...gallery.slice(4), ...gallery.slice(0, 4)]];
 
 const localAssets = {
   app: "/images/local/library-app.webp",
@@ -80,8 +83,6 @@ export default function Landing() {
     const id = setInterval(() => setTestimonialIndex((i) => (i + 1) % testimonials.length), 4200);
     return () => clearInterval(id);
   }, []);
-
-  const duplicatedGallery = useMemo(() => [...gallery, ...gallery], []);
 
   return (
     <main>
@@ -153,14 +154,22 @@ export default function Landing() {
           <SectionTitle eyebrow="VEJA O QUE VOCÊ PODE CRIAR">
             Chaveirinhos que <span className="pink">encantam, presenteiam e podem virar produto.</span>
           </SectionTitle>
-          <div className="marquee-shell" data-reveal>
-            <div className="marquee-track">
-              {duplicatedGallery.map((src, i) => (
-                <div className="gallery-card" key={`${src}-${i}`}>
-                  <img src={src} alt="Exemplo de chaveiro amigurumi" loading="lazy" />
+          <div className="marquee-gallery" data-reveal>
+            {galleryRows.map((row, rowIndex) => (
+              <div className="marquee-shell" key={rowIndex}>
+                <div className={`marquee-track${rowIndex === 1 ? " marquee-track-reverse" : ""}`}>
+                  {[0, 1].map((copy) => (
+                    <div className="marquee-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                      {row.map((item) => (
+                        <div className="gallery-card" key={item.src}>
+                          <img src={item.src} alt={copy === 0 ? item.alt : ""} loading="lazy" width={230} height={230} />
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

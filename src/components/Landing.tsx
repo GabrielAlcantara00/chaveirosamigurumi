@@ -91,7 +91,7 @@ export default function Landing() {
         <div className="hero-glow glow-one" />
         <div className="hero-glow glow-two" />
         <div className="wrap hero-grid">
-          <div className="hero-copy" data-reveal>
+          <div className="hero-copy hero-intro" data-reveal>
             <div className="eyebrow">+160 RECEITAS + CURSO + FERRAMENTAS</div>
             <h1>
               DO NOVELO AO <span>CHAVEIRO PRONTO:</span> TENHA AS RECEITAS E O CAMINHO PARA CRIAR, PRECIFICAR E VENDER.
@@ -99,6 +99,13 @@ export default function Landing() {
             <p>
               Em vez de ficar procurando receita solta e travar no começo, você escolhe o modelo, segue o passo a passo e avança até a peça pronta — mesmo se ainda estiver aprendendo.
             </p>
+          </div>
+
+          <div className="hero-media" data-reveal>
+            <img src="/images/mockup-chaveiros.png" width={612} height={408} alt="Coleção com mais de 160 receitas de chaveiros amigurumi e cinco bônus" fetchPriority="high" />
+          </div>
+
+          <div className="hero-actions" data-reveal>
             <div className="hero-chips">
               <span>✓ +160 receitas</span>
               <span>✓ 21 aulas</span>
@@ -108,9 +115,6 @@ export default function Landing() {
             <div className="microcopy">Planos a partir de <strong>{money(offer.starter.price)}</strong> • sem mensalidade</div>
           </div>
 
-          <div className="hero-media" data-reveal>
-            <img src="/images/hero-amigurumi.png" alt="Biblioteca de chaveiros amigurumi, curso e receitas organizadas" />
-          </div>
         </div>
       </section>
 

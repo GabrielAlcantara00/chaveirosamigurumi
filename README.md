@@ -72,7 +72,7 @@ Todos os visuais usados pela landing page estão salvos localmente dentro de `pu
 A página não faz nenhuma requisição de imagem para a LP original.
 
 Arquivos principais:
-- `public/images/hero-amigurumi.png`
+- `public/images/mockup-chaveiros.png` (mockup transparente; no celular, entre a apresentação e os selos)
 - `public/images/local/library-app.webp`
 - `public/images/local/gallery-01.webp` até `gallery-07.webp`
 - `public/images/local/course-card.webp`

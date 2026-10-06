@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { checkoutUrl, money, offer } from "@/config/offer";
 
 const gallery = [
@@ -25,26 +25,16 @@ const localAssets = {
   antiOpen: "/images/local/antiopen-card.webp",
 };
 
-const testimonials = [
-  {
-    name: "Camila R.",
-    initials: "CR",
-    text: "Nunca tinha pegado em uma agulha. Em 2 semanas fiz meu primeiro chaveirinho e vendi para uma amiga. Estou apaixonada!",
-    detail: "Iniciante há 2 meses",
-  },
-  {
-    name: "Juliana M.",
-    initials: "JM",
-    text: "As receitas são super claras. Hoje complemento minha renda vendendo chaveiros personalizados. Virou minha terapia.",
-    detail: "Vendendo há 3 meses",
-  },
-  {
-    name: "Patrícia L.",
-    initials: "PL",
-    text: "O aplicativo é maravilhoso, tenho tudo no celular. Já presenteei toda a família com chaveirinhos únicos.",
-    detail: "Hobby",
-  },
+const reviews = [
+  { src: "/images/depoimentos/avaliacao-01.webp", alt: "Conversa com foto de um hipopótamo de crochê e comentários sobre a peça" },
+  { src: "/images/depoimentos/avaliacao-02.webp", alt: "Conversa sobre o segundo amigurumi e satisfação com o resultado" },
+  { src: "/images/depoimentos/avaliacao-03.webp", alt: "Foto de um ursinho de crochê com elogios no grupo" },
+  { src: "/images/depoimentos/avaliacao-04.webp", alt: "Foto de uma boneca de crochê recém-finalizada e comentários no grupo" },
+  { src: "/images/depoimentos/avaliacao-05.png", alt: "Mensagem de agradecimento pelo passo a passo e relato da primeira venda" },
+  { src: "/images/depoimentos/avaliacao-06.png", alt: "Mensagem de satisfação com as peças feitas para decorar a casa" },
 ];
+
+const reviewRows = [reviews, [...reviews.slice(3), ...reviews.slice(0, 3)]];
 
 function useReveal() {
   useEffect(() => {
@@ -77,13 +67,6 @@ function SectionTitle({ eyebrow, children }: { eyebrow?: string; children: React
 
 export default function Landing() {
   useReveal();
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => setTestimonialIndex((i) => (i + 1) % testimonials.length), 4200);
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <main>
       <div className="topbar">ACESSO VITALÍCIO • PAGAMENTO ÚNICO • 7 DIAS DE GARANTIA</div>
@@ -284,20 +267,25 @@ export default function Landing() {
           <SectionTitle eyebrow="PROVA SOCIAL">
             Quem já começou está <span className="pink">apaixonada.</span>
           </SectionTitle>
-          <div className="testimonial-stage" data-reveal>
-            {testimonials.map((item, i) => (
-              <article className={`testimonial-card ${i === testimonialIndex ? "active" : ""}`} key={item.name}>
-                <div className="stars">★★★★★</div>
-                <p>“{item.text}”</p>
-                <div className="testimonial-person">
-                  <div className="testimonial-avatar" aria-hidden="true">{item.initials}</div>
-                  <div><strong>{item.name}</strong><span>{item.detail}</span></div>
+          <div className="marquee-gallery reviews-gallery" data-reveal>
+            {reviewRows.map((row, rowIndex) => (
+              <div className="marquee-shell" key={rowIndex}>
+                <div className={`marquee-track${rowIndex === 1 ? " marquee-track-reverse" : ""}`}>
+                  {[0, 1].map((copy) => (
+                    <div className="marquee-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                      {row.map((item) => (
+                        <article className="review-card" key={item.src}>
+                          <h3>VEJA OS <span>DEPOIMENTOS</span><br />DOS NOSSOS CLIENTES</h3>
+                          <div className="review-screenshot">
+                            <img src={item.src} alt={copy === 0 ? item.alt : ""} />
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              </article>
+              </div>
             ))}
-            <div className="dots">
-              {testimonials.map((_, i) => <button key={i} className={i === testimonialIndex ? "active" : ""} onClick={() => setTestimonialIndex(i)} aria-label={`Ver depoimento ${i + 1}`} />)}
-            </div>
           </div>
         </div>
       </section>
